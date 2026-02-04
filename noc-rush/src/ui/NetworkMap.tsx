@@ -111,125 +111,126 @@ const SwitchIcon = ({ isActive }: { isActive: boolean }) => (
 );
 
 // Ethernet Cable Component
-const EthernetCable = ({ x1, y1, x2, y2, isActive }: { key?: number; x1: number; y1: number; x2: number; y2: number; isActive: boolean }) => {
+const EthernetCable = ({ x1, y1, x2, y2, isActive, isDown }: { key?: number; x1: number; y1: number; x2: number; y2: number; isActive: boolean; isDown: boolean }) => {
     const angle = Math.atan2(y2 - y1, x2 - x1);
-
-    // Calculate connector positions (slightly inside the endpoints)
     const connectorOffset = 15;
     const cx1 = x1 + Math.cos(angle) * connectorOffset;
     const cy1 = y1 + Math.sin(angle) * connectorOffset;
     const cx2 = x2 - Math.cos(angle) * connectorOffset;
     const cy2 = y2 - Math.sin(angle) * connectorOffset;
 
+    const cableColor = isDown ? "#ef4444" : (isActive ? "#2563eb" : "#374151");
+    const highlightColor = isDown ? "#f87171" : (isActive ? "#60a5fa" : "#4b5563");
+
     return (
-        <g>
-            {/* Cable shadow */}
-            <line
-                x1={cx1} y1={cy1 + 2}
-                x2={cx2} y2={cy2 + 2}
-                stroke="rgba(0,0,0,0.3)"
-                strokeWidth="6"
-                strokeLinecap="round"
-            />
-
-            {/* Main cable - looks like ethernet cable */}
-            <line
-                x1={cx1} y1={cy1}
-                x2={cx2} y2={cy2}
-                stroke={isActive ? "#2563eb" : "#374151"}
-                strokeWidth="5"
-                strokeLinecap="round"
-            />
-
-            {/* Cable inner wire highlight */}
-            <line
-                x1={cx1} y1={cy1}
-                x2={cx2} y2={cy2}
-                stroke={isActive ? "#60a5fa" : "#4b5563"}
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeDasharray="0"
-            />
+        <g className="transition-all duration-500">
+            <line x1={cx1} y1={cy1 + 2} x2={cx2} y2={cy2 + 2} stroke="rgba(0,0,0,0.3)" strokeWidth="6" strokeLinecap="round" />
+            <line x1={cx1} y1={cy1} x2={cx2} y2={cy2} stroke={cableColor} strokeWidth="5" strokeLinecap="round" />
+            <line x1={cx1} y1={cy1} x2={cx2} y2={cy2} stroke={highlightColor} strokeWidth="2" strokeLinecap="round" />
+            {/* Source Label */}
+            <g transform={`translate(${cx1 + Math.cos(angle + Math.PI / 2) * 12}, ${cy1 + Math.sin(angle + Math.PI / 2) * 12})`}>
+                <text textAnchor="middle" fontSize="6" fill="#94a3b8" fontWeight="bold" className="pointer-events-none select-none">
+                    {(useGameStore.getState().topology.links.find(l =>
+                        (l.source === (useGameStore.getState().topology.devices as any)['R1']?.id || l.source === 'R1') // Mock-ish but functional
+                    ) as any)?.sourceInt || 'Gi0/1'}
+                </text>
+            </g>
 
             {/* RJ45 Connector at source */}
             <g transform={`translate(${cx1}, ${cy1}) rotate(${angle * 180 / Math.PI})`}>
-                <rect x="-8" y="-4" width="10" height="8" fill="#e5e7eb" stroke="#9ca3af" strokeWidth="0.5" rx="1" />
+                <rect x="-8" y="-4" width="10" height="8" fill={isDown ? "#fca5a5" : "#e5e7eb"} stroke={isDown ? "#ef4444" : "#9ca3af"} strokeWidth="0.5" rx="1" />
                 <rect x="-6" y="-2" width="4" height="4" fill="#f3f4f6" />
-                {/* Clip */}
                 <rect x="0" y="-2" width="2" height="4" fill="#d1d5db" />
+            </g>
+
+            {/* Destination Label */}
+            <g transform={`translate(${cx2 + Math.cos(angle - Math.PI / 2) * 12}, ${cy2 + Math.sin(angle - Math.PI / 2) * 12})`}>
+                <text textAnchor="middle" fontSize="6" fill="#94a3b8" fontWeight="bold" className="pointer-events-none select-none">
+                    Gi0/2
+                </text>
             </g>
 
             {/* RJ45 Connector at destination */}
             <g transform={`translate(${cx2}, ${cy2}) rotate(${(angle * 180 / Math.PI) + 180})`}>
-                <rect x="-8" y="-4" width="10" height="8" fill="#e5e7eb" stroke="#9ca3af" strokeWidth="0.5" rx="1" />
+                <rect x="-8" y="-4" width="10" height="8" fill={isDown ? "#fca5a5" : "#e5e7eb"} stroke={isDown ? "#ef4444" : "#9ca3af"} strokeWidth="0.5" rx="1" />
                 <rect x="-6" y="-2" width="4" height="4" fill="#f3f4f6" />
                 <rect x="0" y="-2" width="2" height="4" fill="#d1d5db" />
             </g>
 
-            {/* Data flow animation */}
-            {isActive && (
-                <circle r="3" fill="#22c55e">
-                    <animateMotion
-                        dur="2s"
-                        repeatCount="indefinite"
-                        path={`M${cx1},${cy1} L${cx2},${cy2}`}
-                    />
+            {isActive && !isDown && (
+                <circle r="3" fill="#22c55e" className="filter drop-shadow-[0_0_5px_#22c55e]">
+                    <animateMotion dur="2s" repeatCount="indefinite" path={`M${cx1},${cy1} L${cx2},${cy2}`} />
                 </circle>
             )}
         </g>
     );
 };
 
+const PacketPulse = ({ x1, y1, x2, y2 }: { x1: number, y1: number, x2: number, y2: number }) => (
+    <circle r="4" fill="#60a5fa" className="filter drop-shadow-[0_0_8px_#3b82f6]">
+        <animateMotion
+            dur="0.8s"
+            repeatCount="1"
+            path={`M${x1},${y1} L${x2},${y2}`}
+            fill="remove"
+        />
+    </circle>
+);
+
 export const NetworkMap = ({ activeDevice, onDeviceClick }: NetworkMapProps) => {
-    const { topology } = useGameStore();
-
-    // Enhanced mock data with more realistic positioning
-    const devices = Object.keys(topology.devices).length ? topology.devices : {
-        'R1': { id: 'R1', type: 'router', x: 120, y: 100, interfaces: {}, config: '' },
-        'SW1': { id: 'SW1', type: 'switch', x: 350, y: 100, interfaces: {}, config: '' },
-        'R2': { id: 'R2', type: 'router', x: 240, y: 280, interfaces: {}, config: '' },
-    };
-
-    const links = topology.links.length ? topology.links : [
-        { source: 'R1', target: 'SW1', id: 'l1' },
-        { source: 'SW1', target: 'R2', id: 'l2' },
-        { source: 'R1', target: 'R2', id: 'l3' }
-    ];
+    const { topology, packetAnims } = useGameStore();
+    const { devices, links } = topology;
 
     return (
-        <div className="w-full h-full relative bg-gradient-to-br from-slate-900 via-gray-900 to-zinc-900 overflow-hidden">
-            {/* Rack/datacenter floor pattern */}
-            <div
-                className="absolute inset-0 opacity-5"
-                style={{
-                    backgroundImage: `
-                        linear-gradient(90deg, #ffffff 1px, transparent 1px),
-                        linear-gradient(#ffffff 1px, transparent 1px)
-                    `,
-                    backgroundSize: '50px 50px'
-                }}
-            />
+        <div className="relative w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gray-900 via-black to-black overflow-hidden select-none">
+            {/* Grid background */}
+            <div className="absolute inset-0 opacity-10 pointer-events-none"
+                style={{ backgroundImage: 'radial-gradient(#4ade80 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
 
-            {/* Subtle glow effect in center */}
-            <div className="absolute inset-0 bg-gradient-radial from-green-900/10 via-transparent to-transparent"
-                style={{ background: 'radial-gradient(circle at 50% 50%, rgba(34, 197, 94, 0.05) 0%, transparent 50%)' }} />
-
-            {/* SVG for cables */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none">
-                {links.map((link: any, i: number) => {
-                    const src = (devices as any)[link.source];
-                    const dst = (devices as any)[link.target];
-                    if (!src || !dst) return null;
-                    const isLinkActive = activeDevice === src.id || activeDevice === dst.id;
+                <defs>
+                    <filter id="glow">
+                        <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
+                        <feMerge>
+                            <feMergeNode in="coloredBlur" /><feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                </defs>
+
+                {links.map((link, i) => {
+                    const srcDev = devices[link.source];
+                    const dstDev = devices[link.target];
+                    if (!srcDev || !dstDev) return null;
+
+                    const srcInt = srcDev.interfaces[link.sourceInt];
+                    const dstInt = dstDev.interfaces[link.targetInt];
+                    const isDown = (srcInt?.status !== 'up') || (dstInt?.status !== 'up') || link.status === 'down';
+                    const isLinkActive = activeDevice === link.source || activeDevice === link.target;
+
                     return (
-                        <EthernetCable
-                            key={i}
-                            x1={src.x}
-                            y1={src.y}
-                            x2={dst.x}
-                            y2={dst.y}
-                            isActive={isLinkActive}
-                        />
+                        <g key={i}>
+                            <EthernetCable
+                                x1={srcDev.x}
+                                y1={srcDev.y}
+                                x2={dstDev.x}
+                                y2={dstDev.y}
+                                isActive={isLinkActive}
+                                isDown={isDown}
+                            />
+                            {/* Render triggered packets along this link */}
+                            {packetAnims.filter(p =>
+                                (p.source === link.source && p.target === link.target) ||
+                                (p.source === link.target && p.target === link.source)
+                            ).map(p => (
+                                <PacketPulse
+                                    key={p.id}
+                                    x1={p.source === link.source ? srcDev.x : dstDev.x}
+                                    y1={p.source === link.source ? srcDev.y : dstDev.y}
+                                    x2={p.source === link.source ? dstDev.x : srcDev.x}
+                                    y2={p.source === link.source ? dstDev.y : srcDev.y}
+                                />
+                            ))}
+                        </g>
                     );
                 })}
             </svg>

@@ -6,15 +6,17 @@ import { CLIParser } from '../engine/cli/parser';
 
 interface TerminalProps {
     deviceName: string;
-    onCommand?: (cmd: string) => void;
 }
 
+// Persist parser instance across renders
 const parser = new CLIParser();
 
 export const TerminalComponent = ({ deviceName }: TerminalProps) => {
     const terminalRef = useRef<HTMLDivElement>(null);
     const xtermRef = useRef<Terminal | null>(null);
     const bufferRef = useRef<string>('');
+    const historyRef = useRef<string[]>([]);
+    const historyIndexRef = useRef<number>(-1);
 
     useEffect(() => {
         if (!terminalRef.current) return;
@@ -26,8 +28,10 @@ export const TerminalComponent = ({ deviceName }: TerminalProps) => {
                 foreground: '#22c55e', // green-500
                 cursor: '#22c55e'
             },
-            fontFamily: 'monospace',
-            fontSize: 14
+            fontFamily: '"Fira Code", monospace',
+            fontSize: 14,
+            letterSpacing: 0,
+            lineHeight: 1.2
         });
 
         const fitAddon = new FitAddon();
@@ -37,35 +41,96 @@ export const TerminalComponent = ({ deviceName }: TerminalProps) => {
 
         xtermRef.current = term;
 
-        term.write(`\r\nWelcome to NOC Rush CLI\r\nConnected to ${deviceName}\r\n`);
-        term.write(`${deviceName}# `);
+        const writePrompt = () => {
+            term.write(`\r${parser.getPrompt(deviceName)} `);
+        };
+
+        // Simulated IOS Boot sequence
+        if (bufferRef.current === '') {
+            term.write('\x1b[32mBootstrap program is C3560 boot loader\r\n');
+            term.write('Self-decompressing the image : ########################################################################### [OK]\r\n\x1b[0m');
+            term.write('\r\nCisco IOS Software, C3560 Software (C3560-IPSERVICESK9-M), Version 15.0(2)SE\r\n');
+            term.write('Copyright (c) 1986-2012 by Cisco Systems, Inc.\r\n\r\n');
+            setTimeout(writePrompt, 100);
+        } else {
+            writePrompt();
+        }
 
         term.onData((data: string) => {
-            const code = data.charCodeAt(0);
+            const charCode = data.charCodeAt(0);
+
+            // Handle multi-character sequences (like arrows)
+            if (data.startsWith('\x1b[')) {
+                const seq = data.substring(2);
+                if (seq === 'A') { // UP arrow
+                    if (historyRef.current.length > 0 && historyIndexRef.current < historyRef.current.length - 1) {
+                        historyIndexRef.current++;
+                        const cmd = historyRef.current[historyRef.current.length - 1 - historyIndexRef.current];
+                        // Clear current line
+                        term.write('\b \b'.repeat(bufferRef.current.length));
+                        bufferRef.current = cmd;
+                        term.write(cmd);
+                    }
+                    return;
+                }
+                if (seq === 'B') { // DOWN arrow
+                    if (historyIndexRef.current > 0) {
+                        historyIndexRef.current--;
+                        const cmd = historyRef.current[historyRef.current.length - 1 - historyIndexRef.current];
+                        term.write('\b \b'.repeat(bufferRef.current.length));
+                        bufferRef.current = cmd;
+                        term.write(cmd);
+                    } else if (historyIndexRef.current === 0) {
+                        historyIndexRef.current = -1;
+                        term.write('\b \b'.repeat(bufferRef.current.length));
+                        bufferRef.current = '';
+                    }
+                    return;
+                }
+                return;
+            }
 
             // Enter key
-            if (code === 13) {
+            if (charCode === 13) {
+                const cmd = bufferRef.current.trim();
                 term.write('\r\n');
-                const cmd = bufferRef.current;
+
+                if (cmd) {
+                    historyRef.current.push(cmd);
+                    if (historyRef.current.length > 50) historyRef.current.shift();
+                }
+                historyIndexRef.current = -1;
                 bufferRef.current = '';
 
-                // Execute command via parser
                 const res = parser.execute(deviceName, cmd);
                 if (res.output) {
-                    term.write(res.output.replace(/\n/g, '\r\n') + '\r\n');
+                    const formatted = res.output.split('\n').join('\r\n');
+                    term.write(formatted + '\r\n');
                 }
 
-                term.write(`${deviceName}# `);
+                writePrompt();
             }
             // Backspace
-            else if (code === 127) {
+            else if (charCode === 127 || charCode === 8) {
                 if (bufferRef.current.length > 0) {
                     bufferRef.current = bufferRef.current.slice(0, -1);
                     term.write('\b \b');
                 }
             }
-            // Normal char
-            else if (code >= 32) {
+            // Tab key
+            else if (charCode === 9) {
+                // Simple TAB completion shim
+                const words = ['show', 'configure', 'terminal', 'interface', 'ip', 'address', 'running-config', 'ping', 'hostname', 'no', 'shutdown', 'description'];
+                const current = bufferRef.current.toLowerCase();
+                const match = words.find(w => w.startsWith(current) && w !== current);
+                if (match) {
+                    const addition = match.substring(current.length);
+                    bufferRef.current += addition;
+                    term.write(addition);
+                }
+            }
+            // Normal characters
+            else if (charCode >= 32 && charCode < 127) {
                 bufferRef.current += data;
                 term.write(data);
             }
@@ -80,5 +145,9 @@ export const TerminalComponent = ({ deviceName }: TerminalProps) => {
         };
     }, [deviceName]);
 
-    return <div ref={terminalRef} className="h-full w-full" />;
+    return (
+        <div className="h-full w-full bg-[#09090b] p-2">
+            <div ref={terminalRef} className="h-full w-full" />
+        </div>
+    );
 };

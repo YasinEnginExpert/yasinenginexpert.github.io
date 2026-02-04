@@ -32,6 +32,33 @@ export interface Topology {
     links: Link[];
 }
 
+export interface Event {
+    id: string;
+    type: 'packet' | 'config' | 'system';
+    source?: string;
+    destination?: string;
+    description: string;
+    timestamp: number;
+}
+
+export interface Mission {
+    id: string;
+    title: string;
+    description: string;
+    targetDevice: string;
+    targetInt?: string;
+    type: 'configure_ip' | 'restore_link' | 'ping_test';
+    reward: number;
+    completed: boolean;
+}
+
+export interface PacketAnimation {
+    id: string;
+    source: string;
+    target: string;
+    timestamp: number;
+}
+
 export interface GameSession {
     id: string;
     score: number;
@@ -39,6 +66,9 @@ export interface GameSession {
     startTime: number;
     topology: Topology;
     alerts: Alert[];
+    events: Event[];
+    missions: Mission[]; // Added this
+    packetAnims: PacketAnimation[]; // Added for visual triggers
 }
 
 export interface Alert {

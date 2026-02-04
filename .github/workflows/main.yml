@@ -1,0 +1,59 @@
+name: Deploy NOC Rush
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          # Cache satırlarını sildik çünkü package-lock.json henüz yok.
+          
+      - name: Install & Build NOC Rush
+        working-directory: ./noc-rush
+        run: |
+          npm install
+          npm run build
+
+      - name: Prepare Deployment Artifact
+        run: |
+          mkdir -p _site
+          # Copy main site assets
+          cp -r index.html 404.html assets community_hub.html manifest.json _site/
+          # Copy built game to subdirectory
+          mkdir -p _site/noc-rush
+          cp -r noc-rush/dist/* _site/noc-rush/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

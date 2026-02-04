@@ -1,10 +1,14 @@
 import { create } from 'zustand';
-import { GameSession, Topology } from './types';
+import { GameSession, Topology, Event, Alert, Mission, PacketAnimation } from './types';
 
 interface GameState extends GameSession {
     // Actions
     initSession: (topology: Topology) => void;
     updateScore: (delta: number) => void;
+    updateInterface: (deviceId: string, intName: string, updates: Partial<any>) => void;
+    addEvent: (event: Omit<Event, 'id' | 'timestamp'>) => void;
+    triggerPacket: (source: string, target: string) => void;
+    checkMissions: () => void;
     addAlert: (msg: string, severity: 'critical' | 'major' | 'minor') => void;
     tick: () => void;
 }
@@ -54,12 +58,7 @@ const INITIAL_TOPOLOGY: Topology = {
     ]
 };
 
-export const useGameStore = create<GameState & {
-    updateInterface: (deviceId: string, intName: string, updates: Partial<any>) => void,
-    addEvent: (event: Omit<any, 'id' | 'timestamp'>) => void,
-    triggerPacket: (source: string, target: string) => void,
-    checkMissions: () => void
-}>((set, get) => ({
+export const useGameStore = create<GameState>((set, get) => ({
     id: 'session-' + Math.random().toString(36).substr(2, 9),
     score: 0,
     sla: 100,
@@ -125,13 +124,13 @@ export const useGameStore = create<GameState & {
         set({ missions: newMissions });
     },
 
-    addEvent: (event) => set((state) => ({
+    addEvent: (event: Omit<Event, 'id' | 'timestamp'>) => set((state) => ({
         events: [
             {
                 ...event,
                 id: Math.random().toString(36),
                 timestamp: Date.now()
-            },
+            } as Event,
             ...state.events.slice(0, 49) // Keep last 50 events
         ]
     })),

@@ -1,4 +1,5 @@
 import { useGameStore } from '../engine/session';
+import { Device, Link, PacketAnimation } from '../engine/types';
 
 interface NetworkMapProps {
     activeDevice?: string;
@@ -166,7 +167,7 @@ const EthernetCable = ({ x1, y1, x2, y2, isActive, isDown }: { key?: number; x1:
     );
 };
 
-const PacketPulse = ({ x1, y1, x2, y2 }: { x1: number, y1: number, x2: number, y2: number }) => (
+const PacketPulse = ({ x1, y1, x2, y2 }: { x1: number, y1: number, x2: number, y2: number, key?: string }) => (
     <circle r="4" fill="#60a5fa" className="filter drop-shadow-[0_0_8px_#3b82f6]">
         <animateMotion
             dur="0.8s"
@@ -197,9 +198,9 @@ export const NetworkMap = ({ activeDevice, onDeviceClick }: NetworkMapProps) => 
                     </filter>
                 </defs>
 
-                {links.map((link, i) => {
-                    const srcDev = devices[link.source];
-                    const dstDev = devices[link.target];
+                {(links as Link[]).map((link, i) => {
+                    const srcDev = (devices as Record<string, Device>)[link.source];
+                    const dstDev = (devices as Record<string, Device>)[link.target];
                     if (!srcDev || !dstDev) return null;
 
                     const srcInt = srcDev.interfaces[link.sourceInt];
@@ -218,7 +219,7 @@ export const NetworkMap = ({ activeDevice, onDeviceClick }: NetworkMapProps) => 
                                 isDown={isDown}
                             />
                             {/* Render triggered packets along this link */}
-                            {packetAnims.filter(p =>
+                            {(packetAnims as PacketAnimation[]).filter(p =>
                                 (p.source === link.source && p.target === link.target) ||
                                 (p.source === link.target && p.target === link.source)
                             ).map(p => (
@@ -236,7 +237,7 @@ export const NetworkMap = ({ activeDevice, onDeviceClick }: NetworkMapProps) => 
             </svg>
 
             {/* Device nodes */}
-            {Object.values(devices).map((dev: any) => {
+            {Object.values(devices as Record<string, Device>).map((dev) => {
                 const isActive = activeDevice === dev.id;
                 const isRouter = dev.type === 'router';
 

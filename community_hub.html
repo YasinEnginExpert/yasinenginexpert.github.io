@@ -7,6 +7,43 @@
     <title>Topluluk Merkezi | Yasin Engin</title>
     <meta name="description"
         content="Yasin Engin Topluluk Merkezi - Proje Fikirleri, Yardım Bekleyenler ve Proje Vitrini." />
+    <meta name="keywords"
+        content="Community, Network Engineering, Project Ideas, Collaboration, Showcase, Yasin Engin, Netreka" />
+    <link rel="canonical" href="https://yasinenginexpert.github.io/community_hub.html" />
+
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="theme-color" content="#121212">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=()">
+    <link rel="manifest" href="manifest.json">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Topluluk Merkezi | Yasin Engin" />
+    <meta property="og:description"
+        content="Birlikte üretelim, paylaşalım ve geliştirelim. Fikirlerinizi sunun, takıldığınız yerde destek alın veya projenizi sergileyin." />
+    <meta property="og:image" content="https://yasinenginexpert.github.io/assets/img/netreka_logo.png" />
+    <meta property="og:url" content="https://yasinenginexpert.github.io/community_hub.html" />
+    <meta property="og:type" content="website" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Community Hub",
+        "description": "A hub for network engineering enthusiasts to share ideas, get help, and showcase projects.",
+        "publisher": {
+          "@type": "Person",
+          "name": "Yasin Engin"
+        }
+      }
+    </script>
 
     <link rel="stylesheet" href="assets/css/style.css" />
 
@@ -158,7 +195,9 @@
                         </div>
                     </div>
                     <a href="https://github.com/YasinEnginExpert/my-ansible-lab/issues" target="_blank"
-                        class="card-link">
+                        rel="noopener noreferrer" class="card-link">
+                        <span id="stars-ansible"
+                            style="display:inline-block; margin-right:10px; font-size:0.9em; color:#ccc;"></span>
                         <i class="fab fa-github"></i> Issue'ya Git
                     </a>
                 </article>
@@ -210,6 +249,35 @@
             </div>
         </section>
 
+        <!-- Discussions / Comments (Giscus) -->
+        <section id="discussion" class="container section">
+            <h2 class="section-title">
+                <i class="fas fa-comments" style="color: var(--accent-glow);"></i> &nbsp; Topluluk Sohbeti
+            </h2>
+
+            <!-- Security / Privacy Note -->
+            <div
+                style="margin-bottom: 1.5rem; padding: 1rem; border-left: 3px solid var(--accent-color); background: rgba(136, 214, 76, 0.05); border-radius: 0 8px 8px 0;">
+                <h4 style="color: var(--accent-glow); margin-bottom: 0.5rem;">
+                    <i class="fas fa-user-shield"></i> Güvenli & Şeffaf İletişim
+                </h4>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                    Burada paylaştığınız fikirler doğrudan <strong>GitHub Discussions</strong> altyapısında saklanır.
+                    Hiçbir kişisel veri bu sitede tutulmaz veya izlenmez. Yorum yapmak için GitHub hesabınızla güvenli
+                    giriş yaparsınız.
+                </p>
+            </div>
+
+            <div class="giscus-wrapper"
+                style="background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 12px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1);">
+                <script src="https://giscus.app/client.js" data-repo="YasinEnginExpert/yasinenginexpert.github.io"
+                    data-repo-id="R_kgDONv5j0Q" data-category="General" data-category-id="DIC_kwDONv5j0c4CkblJ"
+                    data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0"
+                    data-input-position="bottom" data-theme="dark" data-lang="tr" crossorigin="anonymous" async>
+                    </script>
+            </div>
+        </section>
+
     </main>
 
     <footer id="contact">
@@ -229,10 +297,12 @@
             </div>
 
             <div class="socials">
-                <a href="https://github.com/YasinEnginExpert" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/yasin-engin%F0%9F%9B%9C-696890289/?locale=tr_TR" target="_blank"><i
-                        class="fab fa-linkedin"></i></a>
-                <a href="https://www.youtube.com/@Netreka_Akademi" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://github.com/YasinEnginExpert" target="_blank" rel="noopener noreferrer"><i
+                        class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/yasin-engin%F0%9F%9B%9C-696890289/?locale=tr_TR" target="_blank"
+                    rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.youtube.com/@Netreka_Akademi" target="_blank" rel="noopener noreferrer"><i
+                        class="fab fa-youtube"></i></a>
             </div>
 
             <p class="mini-bio">Yasin is just an ordinary human being.</p>
@@ -268,6 +338,7 @@
     <script src="assets/js/main.js"></script>
     <script src="assets/js/network-bg.js"></script>
     <script src="assets/js/terminal.js"></script>
+    <script src="assets/js/community_loader.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,21 @@
+{
+    "name": "Yasin Engin | Network Expert",
+    "short_name": "YasinEngin",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#121212",
+    "theme_color": "#121212",
+    "description": "Network Engineer & Automation Developer Portfolio",
+    "icons": [
+        {
+            "src": "assets/img/profile.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "assets/img/profile.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

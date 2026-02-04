@@ -1,0 +1,7 @@
+# Hide Source Code
+assets/js/src/
+assets/css/src/
+
+# OS Files
+.DS_Store
+Thumbs.db

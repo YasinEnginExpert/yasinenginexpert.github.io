@@ -52,6 +52,22 @@ body {
   line-height: 1.6;
   transition: background-color 0.3s, color 0.3s;
   overflow-x: hidden;
+  -webkit-user-select: none;
+  /* Safari */
+  -ms-user-select: none;
+  /* IE 10 and IE 11 */
+  user-select: none;
+  /* Standard syntax */
+}
+
+/* Image Protection (Anti-Theft) */
+img {
+  pointer-events: none;
+  /* Disables right-click context menu on images */
+  -webkit-user-drag: none;
+  /* Disables dragging */
+  user-select: none;
+  /* Disables highlighting */
 }
 
 /* Network Canvas Background */

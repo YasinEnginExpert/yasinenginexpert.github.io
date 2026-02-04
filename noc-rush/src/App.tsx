@@ -3,7 +3,7 @@ import { TerminalComponent } from './ui/Terminal'
 import { NetworkMap } from './ui/NetworkMap'
 
 function App() {
-    const [activeDevice] = useState('R1');
+    const [activeDevice, setActiveDevice] = useState('R1');
 
     return (
         <div className="flex h-screen w-screen bg-gray-950 text-gray-200 font-mono overflow-hidden">
@@ -39,7 +39,10 @@ function App() {
 
                     {/* Top: Topology */}
                     <div className="flex-1 relative bg-black/50">
-                        <NetworkMap />
+                        <NetworkMap
+                            activeDevice={activeDevice}
+                            onDeviceClick={(deviceId) => setActiveDevice(deviceId)}
+                        />
                     </div>
 
                     {/* Bottom: Terminal */}
@@ -47,7 +50,7 @@ function App() {
                         <div className="absolute top-0 right-0 px-2 py-1 bg-gray-800 text-[10px] text-white rounded-bl opacity-50 z-10">
                             Connected: {activeDevice}
                         </div>
-                        <TerminalComponent deviceName={activeDevice} />
+                        <TerminalComponent key={activeDevice} deviceName={activeDevice} />
                     </div>
 
                 </div>

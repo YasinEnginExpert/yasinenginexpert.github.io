@@ -9,6 +9,16 @@
         content="Professional CV of Yasin Engin. Network Automation Engineer, SDN Architect, and Go Developer.">
     <link rel="canonical" href="https://yasinenginn.github.io/cv.html" />
     <meta name="robots" content="index, follow">
+    <meta name="author" content="Yasin Engin">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=()">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self'; upgrade-insecure-requests; block-all-mixed-content">
 
     <!-- PDF / Print Friendly Styles -->
     <style>
@@ -38,6 +48,41 @@
             color: var(--text-color);
         }
 
+        .skip-link {
+            position: absolute;
+            left: -999px;
+            top: 0;
+            background: var(--accent-color);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            z-index: 10;
+        }
+
+        .skip-link:focus {
+            left: 12px;
+            top: 12px;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: inherit;
+            padding: 6px 0;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
         header {
             border-bottom: 2px solid var(--accent-color);
             padding-bottom: 1rem;
@@ -50,15 +95,22 @@
             color: var(--accent-color);
         }
 
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
         .contact-info {
             margin-top: 0.5rem;
             font-size: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.25rem 1rem;
         }
 
         .contact-info a {
             color: inherit;
             text-decoration: none;
-            margin-right: 1rem;
         }
 
         .contact-info a:hover {
@@ -141,112 +193,150 @@
             text-decoration: none;
             border-radius: 5px;
             font-weight: bold;
-            margin-bottom: 20px;
+            border: none;
+            cursor: pointer;
+            font: inherit;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1.25rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .title-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.2rem;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <a href="javascript:window.print()" class="btn-download no-print">Download as PDF</a>
-    <a href="index.html" class="no-print" style="margin-left: 20px;">&larr; Back to Portfolio</a>
+    <a class="skip-link no-print" href="#content">Skip to content</a>
 
-    <header>
-        <h1>Yasin Engin</h1>
-        <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">Network Automation Engineer & SDN Architect</div>
-        <div class="contact-info">
-            <a href="https://yasinenginn.github.io">yasinenginn.github.io</a>
-            <a href="mailto:yasinenginoffical@gmail.com">yasinenginoffical@gmail.com</a>
-            <a href="https://linkedin.com/in/yasin-engin">LinkedIn</a>
-            <a href="https://github.com/YasinEnginn">GitHub</a>
-        </div>
-    </header>
+    <div class="top-actions no-print">
+        <button type="button" id="print-btn" class="btn-download">Download as PDF</button>
+        <a href="index.html" class="back-link">&larr; Back to Portfolio</a>
+    </div>
 
-    <section>
-        <h2>Professional Summary</h2>
-        <p>
-            Computer Engineering student and Network Engineer with a strong focus on Software Defined Networking (SDN),
-            Network Automation, and Distributed Systems. Experienced in building production-grade tools using Go and
-            Python,
-            simulating complex topologies with Nokia SR Linux, and architecting microservices. Founder of Netreka
-            Academy.
-        </p>
-    </section>
-
-    <section>
-        <h2>Technical Skills</h2>
-        <div class="project-item">
-            <ul>
-                <li><strong>Languages:</strong> Go (Golang), Python, SQL, Bash.</li>
-                <li><strong>Networking:</strong> TCP/IP, BGP, OSPF, MPLS, VXLAN, EVPN, gNMI, YANG, NETCONF.</li>
-                <li><strong>SRE & DevOps:</strong> Docker, Docker Swarm, Kubernetes, Ansible, Prometheus, Grafana,
-                    RabbitMQ.</li>
-                <li><strong>Tools:</strong> Containerlab, Nokia SR Linux, Cisco IOS, Wireshark, GNS3.</li>
-            </ul>
-        </div>
-    </section>
-
-    <section>
-        <h2>Featured Projects</h2>
-
-        <div class="project-item">
-            <div class="title-row">
-                <span class="company">Netreka Nexus</span>
-                <span class="date">Open Source</span>
+    <main id="content" tabindex="-1">
+        <header>
+            <h1>Yasin Engin</h1>
+            <div class="tagline">Network Automation Engineer & SDN Architect</div>
+            <div class="contact-info">
+                <a href="https://yasinenginn.github.io">yasinenginn.github.io</a>
+                <a href="mailto:yasinenginoffical@gmail.com">yasinenginoffical@gmail.com</a>
+                <a href="https://linkedin.com/in/yasin-engin">LinkedIn</a>
+                <a href="https://github.com/YasinEnginn">GitHub</a>
             </div>
-            <div class="tech-stack">Go, RabbitMQ, Docker Swarm, gRPC, Microservices</div>
-            <ul>
-                <li>Architected a scalable microservices hub using the Broker pattern.</li>
-                <li>Implemented event-driven communication via RabbitMQ and high-performance logging with gRPC.</li>
-                <li>Deployed on Docker Swarm with Caddy as a reverse proxy gateway.</li>
-            </ul>
-        </div>
+        </header>
 
-        <div class="project-item">
-            <div class="title-row">
-                <span class="company">Tolerex</span>
-                <span class="date">Open Source</span>
+        <section>
+            <h2>Professional Summary</h2>
+            <p>
+                Computer Engineering student and Network Engineer with a strong focus on Software Defined Networking
+                (SDN),
+                Network Automation, and Distributed Systems. Experienced in building production-grade tools using Go
+                and
+                Python,
+                simulating complex topologies with Nokia SR Linux, and architecting microservices. Founder of Netreka
+                Academy.
+            </p>
+        </section>
+
+        <section>
+            <h2>Technical Skills</h2>
+            <div class="project-item">
+                <ul>
+                    <li><strong>Languages:</strong> Go (Golang), Python, SQL, Bash.</li>
+                    <li><strong>Networking:</strong> TCP/IP, BGP, OSPF, MPLS, VXLAN, EVPN, gNMI, YANG, NETCONF.</li>
+                    <li><strong>SRE & DevOps:</strong> Docker, Docker Swarm, Kubernetes, Ansible, Prometheus, Grafana,
+                        RabbitMQ.</li>
+                    <li><strong>Tools:</strong> Containerlab, Nokia SR Linux, Cisco IOS, Wireshark, GNS3.</li>
+                </ul>
             </div>
-            <div class="tech-stack">Go, gRPC, mTLS, Raft Logic</div>
-            <ul>
-                <li>Developed a fault-tolerant distributed storage system inspired by Raft consensus.</li>
-                <li>Implemented Leader-Follower replication, heartbeat failure detection, and automatic failover.</li>
-                <li>Secured inter-node communication using mTLS.</li>
-            </ul>
-        </div>
+        </section>
 
-        <div class="project-item">
-            <div class="title-row">
-                <span class="company">Network Automation Labs</span>
-                <span class="date">Open Source</span>
+        <section>
+            <h2>Featured Projects</h2>
+
+            <div class="project-item">
+                <div class="title-row">
+                    <span class="company">Netreka Nexus</span>
+                    <span class="date">Open Source</span>
+                </div>
+                <div class="tech-stack">Go, RabbitMQ, Docker Swarm, gRPC, Microservices</div>
+                <ul>
+                    <li>Architected a scalable microservices hub using the Broker pattern.</li>
+                    <li>Implemented event-driven communication via RabbitMQ and high-performance logging with gRPC.</li>
+                    <li>Deployed on Docker Swarm with Caddy as a reverse proxy gateway.</li>
+                </ul>
             </div>
-            <div class="tech-stack">Python, Ansible, SR Linux, Containerlab</div>
-            <ul>
-                <li>Created a comprehensive suite of automation workflows for modern data center fabrics.</li>
-                <li>Automated configuration management using Ansible and gNMI for multivendor environments.</li>
-            </ul>
-        </div>
-    </section>
 
-    <section>
-        <h2>Education</h2>
-        <div class="experience-item">
-            <div class="title-row">
-                <span class="company">Computer Engineering</span>
-                <span class="date">Current</span>
+            <div class="project-item">
+                <div class="title-row">
+                    <span class="company">Tolerex</span>
+                    <span class="date">Open Source</span>
+                </div>
+                <div class="tech-stack">Go, gRPC, mTLS, Raft Logic</div>
+                <ul>
+                    <li>Developed a fault-tolerant distributed storage system inspired by Raft consensus.</li>
+                    <li>Implemented Leader-Follower replication, heartbeat failure detection, and automatic failover.</li>
+                    <li>Secured inter-node communication using mTLS.</li>
+                </ul>
             </div>
-            <div>Ondokuz Mayıs University, Turkey</div>
-        </div>
-    </section>
 
-    <section>
-        <h2>Certifications & Learning</h2>
-        <ul>
-            <li>Cisco Certified Network Associate (CCNA) - [Knowledge Base]</li>
-            <li>Cisco Certified Network Professional (CCNP) Enterprise - [In Progress]</li>
-            <li>Nokia SR Linux Network Automation</li>
-        </ul>
-    </section>
+            <div class="project-item">
+                <div class="title-row">
+                    <span class="company">REST-API</span>
+                    <span class="date">Open Source</span>
+                </div>
+                <div class="tech-stack">REST API, Backend, HTTP/JSON</div>
+                <ul>
+                    <li>Built a RESTful service with clean routing and consistent JSON responses.</li>
+                    <li>Implemented validation and structured error handling for API endpoints.</li>
+                </ul>
+            </div>
+
+            <div class="project-item">
+                <div class="title-row">
+                    <span class="company">Network Automation Labs</span>
+                    <span class="date">Open Source</span>
+                </div>
+                <div class="tech-stack">Python, Ansible, SR Linux, Containerlab</div>
+                <ul>
+                    <li>Created a comprehensive suite of automation workflows for modern data center fabrics.</li>
+                    <li>Automated configuration management using Ansible and gNMI for multivendor environments.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Education</h2>
+            <div class="experience-item">
+                <div class="title-row">
+                    <span class="company">Computer Engineering</span>
+                    <span class="date">Current</span>
+                </div>
+                <div>Ondokuz Mayıs University, Turkey</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Certifications & Learning</h2>
+            <ul>
+                <li>Cisco Certified Network Associate (CCNA) - [Knowledge Base]</li>
+                <li>Cisco Certified Network Professional (CCNP) Enterprise - [In Progress]</li>
+                <li>Nokia SR Linux Network Automation</li>
+            </ul>
+        </section>
+    </main>
 
     <script type="application/ld+json">
     {
@@ -316,6 +406,13 @@
         Ağ Yönetimi, Ağ Güvenliği, Siber Güvenlik, Sızma Testi, Otomasyon, Kodlama,
         Netreka, Akademi, Eğitim, Staj, Kariyer, Özgeçmiş, CV İndir.
     </div>
+
+    <script>
+        const printBtn = document.getElementById('print-btn');
+        if (printBtn) {
+            printBtn.addEventListener('click', () => window.print());
+        }
+    </script>
 
 </body>
 

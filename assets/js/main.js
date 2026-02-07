@@ -1,45 +1,49 @@
-const themeBtn = document.getElementById('themeToken');
 const htmlEl = document.documentElement;
-const icon = themeBtn.querySelector('i');
+const themeBtn = document.getElementById('themeToken');
 const currentTheme = localStorage.getItem('theme') || 'dark';
 htmlEl.setAttribute('data-theme', currentTheme);
-updateIcon(currentTheme);
-themeBtn.addEventListener('click', () => {
-    const newTheme = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    htmlEl.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateIcon(newTheme);
-});
-function updateIcon(theme) {
-    if (theme === 'dark') {
-        icon.classList.remove('fa-sun');
-        icon.classList.add('fa-moon');
-    } else {
-        icon.classList.remove('fa-moon');
-        icon.classList.add('fa-sun');
-    }
+if (themeBtn) {
+    const icon = themeBtn.querySelector('i');
+    const updateIcon = (theme) => {
+        if (!icon) return;
+        if (theme === 'dark') {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        } else {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+    };
+
+    updateIcon(currentTheme);
+    themeBtn.addEventListener('click', () => {
+        const newTheme = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        htmlEl.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateIcon(newTheme);
+    });
 }
 const copyBtn = document.getElementById('copyBtn');
 const emailInput = document.getElementById('email-address');
-copyBtn.addEventListener('click', () => {
-    emailInput.select();
-    emailInput.setSelectionRange(0, 99999); // Mobile compatibility
-    navigator.clipboard.writeText(emailInput.value).then(() => {
-        const originalText = copyBtn.textContent;
-        const currentLang = document.documentElement.lang;
-        copyBtn.textContent = currentLang === 'tr' ? 'Kopyalandı!' : 'Copied!';
-        copyBtn.style.background = '#10b981'; // Success green
-        setTimeout(() => {
-            copyBtn.textContent = originalText;
-            copyBtn.style.background = '';
-        }, 2000);
-    }).catch(err => {
-        console.error('Kopyalama başarısız:', err);
+if (copyBtn && emailInput) {
+    copyBtn.addEventListener('click', () => {
+        emailInput.select();
+        emailInput.setSelectionRange(0, 99999); // Mobile compatibility
+        navigator.clipboard.writeText(emailInput.value).then(() => {
+            const originalText = copyBtn.textContent;
+            const currentLang = document.documentElement.lang;
+            copyBtn.textContent = currentLang === 'tr' ? 'Kopyalandı!' : 'Copied!';
+            copyBtn.style.background = '#10b981'; // Success green
+            setTimeout(() => {
+                copyBtn.textContent = originalText;
+                copyBtn.style.background = '';
+            }, 2000);
+        }).catch(err => {
+            console.error('Kopyalama başarısız:', err);
+        });
     });
-});
+}
 const LATEST_VIDEO_ID = "dQw4w9WgXcQ"; // PLEASE UPDATE THIS ID TO YOUR LATEST VIDEO ID
-const LATEST_VIDEO_TITLE_TR = "En Son Video İzle";
-const LATEST_VIDEO_TITLE_EN = "Watch Latest Video";
 
 const translations = {
     tr: {
@@ -50,6 +54,7 @@ const translations = {
         nav_game: "Oyna (Beta)",
         nav_contact: "İletişim",
         location: "Samsun, Türkiye",
+        hero_kicker: "Yasin Engin — Network Automation Engineer",
         hero_title: 'SDN & Network Automation + <br> <span class="highlight">Go Backend + Distributed Systems</span>',
         hero_bio: "Bilgisayar Mühendisliği öğrencisi. Go, gRPC, dağıtık sistemler ve SDN odaklı production-grade backend sistemleri ve network otomasyon araçları geliştiriyorum.",
         projects_title: "Öne Çıkan Projeler (Featured)",
@@ -57,6 +62,7 @@ const translations = {
         proj_tolerex_desc: "Lider–üye, mTLS gRPC, heartbeat hata tespiti, disk kalıcılığı, metrikler/logging.",
         proj_ansible_desc: "Nokia SR Linux, Ansible, Containerlab ve gNMI tabanlı otomasyon iş akışları.",
         proj_go_desc: "Go ile ağ protokolleri, soketler ve HTTP sunucuları uygulamaları.",
+        proj_restapi_desc: "REST API tabanlı backend servis; temiz routing, doğrulama ve JSON yanıtları.",
         proj_cisco_desc: "Cisco sertifikaları için kapsamlı çalışma notları, lab yapılandırmaları ve otomasyon scriptleri.",
         view_repo: "Repo'yu İncele",
         community_desc: "\"Herkes İçin Netreka!\" sloganıyla teknoloji eğitimleri.",
@@ -83,6 +89,7 @@ const translations = {
         nav_game: "Play (Beta)",
         nav_contact: "Contact",
         location: "Samsun, Turkey",
+        hero_kicker: "Yasin Engin — Network Automation Engineer",
         hero_title: 'SDN & Network Automation + <br> <span class="highlight">Go Backend + Distributed Systems</span>',
         hero_bio: "Computer Engineering student building production-grade backend systems and network automation tools. Focused on Go, gRPC, distributed systems, and SDN.",
         projects_title: "Featured Projects",
@@ -90,6 +97,7 @@ const translations = {
         proj_tolerex_desc: "Leader–member, mTLS gRPC, heartbeat failure detection, disk persistence, metrics/logging.",
         proj_ansible_desc: "Nokia SR Linux, Ansible, Containerlab, and gNMI based automation workflows.",
         proj_go_desc: "Implementation of network protocols, sockets, and HTTP servers using Go.",
+        proj_restapi_desc: "REST API backend service with clean routing, validation, and JSON responses.",
         proj_cisco_desc: "Comprehensive study notes, lab configurations, and automation scripts for Cisco certifications.",
         view_repo: "View Repo",
         community_desc: "Tech education with the slogan \"Netreka for Everyone!\"",
@@ -120,24 +128,66 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 const langToggle = document.getElementById('langToggle');
+const setLanguage = (newLang) => {
+    if (!translations[newLang]) return;
+    document.documentElement.lang = newLang;
+    localStorage.setItem('selectedLanguage', newLang);
+    if (langToggle) {
+        langToggle.textContent = newLang === 'tr' ? 'EN' : 'TR';
+    }
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[newLang][key]) {
+            if (key === 'hero_title' || key === 'hero_bio') {
+                el.innerHTML = translations[newLang][key];
+            } else {
+                el.textContent = translations[newLang][key];
+            }
+        }
+    });
+};
+
+const storedLang = localStorage.getItem('selectedLanguage');
+setLanguage((storedLang && translations[storedLang]) ? storedLang : (document.documentElement.lang || 'tr'));
+
 if (langToggle) {
     langToggle.addEventListener('click', () => {
         const currentLang = document.documentElement.lang;
         const newLang = currentLang === 'tr' ? 'en' : 'tr';
-        document.documentElement.lang = newLang;
-        langToggle.textContent = newLang === 'tr' ? 'EN' : 'TR';
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (translations[newLang][key]) {
-                if (key === 'hero_title' || key === 'hero_bio') {
-                    el.innerHTML = translations[newLang][key];
-                } else {
-                    el.textContent = translations[newLang][key];
-                }
-            }
+        setLanguage(newLang);
+    });
+}
+// Mobile Menu Logic
+const mobileBtn = document.querySelector('.mobile-menu-btn');
+const navLinks = document.querySelector('.nav-links');
+
+if (mobileBtn && navLinks) {
+    mobileBtn.addEventListener('click', () => {
+        const isActive = navLinks.classList.toggle('active');
+        mobileBtn.setAttribute('aria-expanded', String(isActive));
+        // Toggle icon between bars and times (X)
+        const icon = mobileBtn.querySelector('i');
+        if (navLinks.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
+
+    // Close menu when a link is clicked
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            mobileBtn.setAttribute('aria-expanded', 'false');
+            const icon = mobileBtn.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
         });
     });
 }
+
 document.addEventListener('contextmenu', event => event.preventDefault());
 document.addEventListener('dragstart', event => event.preventDefault());
 document.addEventListener('keydown', function (event) {
@@ -163,7 +213,7 @@ if (cmdk && cmdkInput && cmdkCloseBtn) {
 
     const actions = [
         { key: "github", run: () => window.open("https://github.com/YasinEnginn", "_blank", "noopener") },
-        { key: "linkedin", run: () => window.open("https://www.linkedin.com/in/yasin-engin%F0%9F%9B%9C-696890289/", "_blank", "noopener") },
+        { key: "linkedin", run: () => window.open("https://www.linkedin.com/in/yasin-engin-696890289/", "_blank", "noopener") },
         { key: "youtube", run: () => window.open("https://www.youtube.com/@Netreka_Akademi", "_blank", "noopener") },
         { key: "projects", run: () => document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" }) },
         {
@@ -178,15 +228,12 @@ if (cmdk && cmdkInput && cmdkCloseBtn) {
                 alert("Focus Mode Toggled (BG disabled)");
             }
         },
-        {
-            key: "lang tr", run: () => document.getElementById('langToggle').click()
-        },
-        {
-            key: "lang en", run: () => document.getElementById('langToggle').click()
-        },
+        { key: "lang tr", run: () => setLanguage('tr') },
+        { key: "lang en", run: () => setLanguage('en') },
         // Shortcuts for specific projects
         { key: "projects: netreka", run: () => window.open("https://github.com/YasinEnginn/Netreka-Nexus", "_blank") },
         { key: "projects: tolerex", run: () => window.open("https://github.com/YasinEnginn/Tolerex", "_blank") },
+        { key: "projects: rest-api", run: () => window.open("https://github.com/YasinEnginn/REST-API", "_blank") },
         {
             key: "vcard", run: () => {
                 // Dynamically generate vCard
@@ -301,11 +348,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     observer.observe(document.documentElement, { attributes: true });
 });
-
-// Add Community Commands to existing actions if they exist (requires modifying the actions array above)
-// Since actions array is local scope, we'll suggest adding them in the main block in a real refactor.
-// For now, let's assume the previous `actions` array is accessible or we re-inject it.
-// Actually, to do this properly with `replace_file_content` I should target the `actions` array directly.
-// I will effectively replace the actions array in a separate step or just assume the user will 'reload' or I can inject additional commands if I exposed `actions` to window.
-// Instead, I'll allow the user to find these in the command palette by re-defining the actions array in the next tool call if needed.
-// For this step, I am just adding the Giscus logic.

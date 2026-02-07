@@ -5,6 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 - Page Not Found | Yasin Engin</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="color-scheme" content="dark light">
+    <meta name="theme-color" content="#0d0d0d">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=()">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; upgrade-insecure-requests; block-all-mixed-content">
     <style>
         body {
             background-color: #0d0d0d;
@@ -14,8 +22,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100svh;
             margin: 0;
+            padding: 2rem;
             text-align: center;
         }
 
@@ -47,18 +56,30 @@
             color: #6a728c;
             margin-bottom: 2rem;
         }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <h1>404</h1>
-    <div class="code">
-        &gt; Initiating search protocol...<br>
-        &gt; Error: Destination unreachable.<br>
-        &gt; Packet loss: 100%
-    </div>
-    <p>Oooops! The page you are looking for has disconnected.</p>
-    <a href="index.html">Return to Home</a>
+    <main>
+        <h1>404</h1>
+        <div class="code">
+            &gt; Initiating search protocol...<br>
+            &gt; Error: Destination unreachable.<br>
+            &gt; Packet loss: 100%
+        </div>
+        <p>Oooops! The page you are looking for has disconnected.</p>
+        <a href="index.html">Return to Home</a>
+    </main>
 </body>
 
 </html>

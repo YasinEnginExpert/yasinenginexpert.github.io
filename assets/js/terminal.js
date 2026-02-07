@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
 
         // Global History (Process-wide up-arrow)
-        globalHistory: [],
+        history: [],
         historyIndex: 0,
 
         // Reverse search
@@ -487,7 +487,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const isLocal = target.startsWith("192.168.1.");
             if (isLocal) addArp(target);
 
-            if (termState.mode === "linux") {
+            if (getSession().mode === "linux") {
                 // Parse: ping -c N host
                 let count = 4;
                 const cIndex = args.indexOf("-c");
@@ -842,7 +842,7 @@ document.addEventListener("DOMContentLoaded", () => {
         aliases: [],
         modes: ["cisco_config", "cisco_if"],
         handler: () => {
-            termState.mode = "cisco_priv";
+            getSession().mode = "cisco_priv";
             print("%SYS-5-CONFIG_I: Configured from console by console", "system");
             log("NOTICE", "Exited configuration mode.");
             updatePrompt();
@@ -969,7 +969,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const cmd = resolveCmd(cmdName);
 
         if (!cmd) {
-            if (termState.mode === "linux") print(`${cmdName}: command not found`, "error");
+            if (getSession().mode === "linux") print(`${cmdName}: command not found`, "error");
             else print("% Invalid input detected at '^' marker.", "error");
             return;
         }

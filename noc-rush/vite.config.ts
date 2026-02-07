@@ -6,9 +6,18 @@ import path from 'path'
 export default defineConfig({
     plugins: [react()],
     base: '/noc-rush/', // Deploying to subdirectory of main site
+    build: {
+        rollupOptions: {
+            input: path.resolve(__dirname, 'index.dev.html')
+        }
+    },
     resolve: {
         alias: {
             '@': path.resolve(__dirname, './src'),
         },
     },
+    server: {
+        host: true,
+        open: '/index.dev.html'
+    }
 })

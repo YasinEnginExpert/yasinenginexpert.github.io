@@ -3,14 +3,18 @@
   Role: Network Engineer & Automation Developer
   Site: yasinenginn.github.io
   Location: Samsun, Turkey
+  Contact: github.com/YasinEnginn
 
 /* THANKS */
   Google Fonts (Inter)
   FontAwesome (Icons)
   GitHub Pages (Hosting)
+  Giscus (Discussions)
 
 /* SITE */
-  Last update: 2026/02/06
+  Last update: 2026/02/07
   Language: English / Turkish
   Doctype: HTML5
+  Standards: HTML5, CSS3, ES2022
+  Components: Giscus, Font Awesome, Google Fonts
   IDE: VS Code

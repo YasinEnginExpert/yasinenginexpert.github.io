@@ -3,13 +3,15 @@ import { Terminal } from 'xterm';
 import { FitAddon } from 'xterm-addon-fit';
 import 'xterm/css/xterm.css';
 import { CLIParser } from '../engine/cli/parser';
+import { useGameStore } from '../engine/session';
 
 interface TerminalProps {
     deviceName: string;
 }
 
-// Persist parser instance across renders
 const parser = new CLIParser();
+const historyByDevice: Record<string, string[]> = {};
+const bootedDevices = new Set<string>();
 
 export const TerminalComponent = ({ deviceName }: TerminalProps) => {
     const terminalRef = useRef<HTMLDivElement>(null);
@@ -17,9 +19,11 @@ export const TerminalComponent = ({ deviceName }: TerminalProps) => {
     const bufferRef = useRef<string>('');
     const historyRef = useRef<string[]>([]);
     const historyIndexRef = useRef<number>(-1);
+    const { triggerPacket, addEvent } = useGameStore();
 
     useEffect(() => {
         if (!terminalRef.current) return;
+        historyRef.current = historyByDevice[deviceName] ?? [];
 
         const term = new Terminal({
             cursorBlink: true,
@@ -45,12 +49,13 @@ export const TerminalComponent = ({ deviceName }: TerminalProps) => {
             term.write(`\r${parser.getPrompt(deviceName)} `);
         };
 
-        // Simulated IOS Boot sequence
-        if (bufferRef.current === '') {
+        // Simulated IOS Boot sequence (once per device)
+        if (!bootedDevices.has(deviceName)) {
             term.write('\x1b[32mBootstrap program is C3560 boot loader\r\n');
             term.write('Self-decompressing the image : ########################################################################### [OK]\r\n\x1b[0m');
             term.write('\r\nCisco IOS Software, C3560 Software (C3560-IPSERVICESK9-M), Version 15.0(2)SE\r\n');
             term.write('Copyright (c) 1986-2012 by Cisco Systems, Inc.\r\n\r\n');
+            bootedDevices.add(deviceName);
             setTimeout(writePrompt, 100);
         } else {
             writePrompt();
@@ -98,11 +103,12 @@ export const TerminalComponent = ({ deviceName }: TerminalProps) => {
                 if (cmd) {
                     historyRef.current.push(cmd);
                     if (historyRef.current.length > 50) historyRef.current.shift();
+                    historyByDevice[deviceName] = historyRef.current;
                 }
                 historyIndexRef.current = -1;
                 bufferRef.current = '';
 
-                const res = parser.execute(deviceName, cmd);
+                const res = parser.execute(deviceName, cmd, { triggerPacket, addEvent });
                 if (res.output) {
                     const formatted = res.output.split('\n').join('\r\n');
                     term.write(formatted + '\r\n');
@@ -120,7 +126,13 @@ export const TerminalComponent = ({ deviceName }: TerminalProps) => {
             // Tab key
             else if (charCode === 9) {
                 // Simple TAB completion shim
-                const words = ['show', 'configure', 'terminal', 'interface', 'ip', 'address', 'running-config', 'ping', 'hostname', 'no', 'shutdown', 'description'];
+                const words = [
+                    'show', 'configure', 'conf', 'terminal', 'interface', 'ip', 'address', 'running-config',
+                    'ping', 'traceroute', 'hostname', 'no', 'shutdown', 'description', 'router',
+                    'ospf', 'bgp', 'network', 'area', 'neighbor', 'remote-as', 'vlan', 'switchport',
+                    'access', 'trunk', 'allowed', 'native', 'route', 'end', 'exit', 'write', 'copy',
+                    'enable', 'disable', 'help', '?'
+                ];
                 const current = bufferRef.current.toLowerCase();
                 const match = words.find(w => w.startsWith(current) && w !== current);
                 if (match) {
@@ -138,12 +150,19 @@ export const TerminalComponent = ({ deviceName }: TerminalProps) => {
 
         const handleResize = () => fitAddon.fit();
         window.addEventListener('resize', handleResize);
+        const resizeObserver = typeof ResizeObserver !== 'undefined'
+            ? new ResizeObserver(() => fitAddon.fit())
+            : null;
+        if (resizeObserver) {
+            resizeObserver.observe(terminalRef.current);
+        }
 
         return () => {
             term.dispose();
             window.removeEventListener('resize', handleResize);
+            if (resizeObserver) resizeObserver.disconnect();
         };
-    }, [deviceName]);
+    }, [deviceName, addEvent, triggerPacket]);
 
     return (
         <div className="h-full w-full bg-[#09090b] p-2">

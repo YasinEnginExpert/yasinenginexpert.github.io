@@ -7,17 +7,24 @@
     <title>Topluluk Merkezi | Yasin Engin</title>
     <meta name="description"
         content="Yasin Engin Topluluk Merkezi - Proje Fikirleri, Yardım Bekleyenler ve Proje Vitrini." />
+    <meta name="author" content="Yasin Engin" />
+    <meta name="robots" content="index,follow" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="application-name" content="Yasin Engin Topluluk Merkezi" />
     <meta name="keywords"
         content="Community, Network Engineering, Project Ideas, Collaboration, Showcase, Yasin Engin, Netreka" />
     <link rel="canonical" href="https://yasinenginn.github.io/community_hub.html" />
+    <link rel="alternate" href="https://yasinenginn.github.io/community_hub.html" hreflang="tr" />
+    <link rel="alternate" href="https://yasinenginn.github.io/community_hub.html" hreflang="en" />
+    <link rel="alternate" href="https://yasinenginn.github.io/community_hub.html" hreflang="x-default" />
 
     <!-- Security Headers -->
-    <!-- Security Headers -->
     <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://giscus.app; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://giscus.app; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://api.github.com; frame-src https://giscus.app;">
+        content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' https://cdnjs.cloudflare.com https://giscus.app 'sha256-sZ4spFBo1x+gEV1FXv2qyegwakCD+rs2ydR3cg8Cpiw='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://giscus.app; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://api.github.com; frame-src https://giscus.app https://ghbtns.com; upgrade-insecure-requests; block-all-mixed-content">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="theme-color" content="#121212">
+    <meta name="color-scheme" content="dark light">
     <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=()">
     <link rel="manifest" href="manifest.json">
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
@@ -29,19 +36,31 @@
     <meta property="og:description"
         content="Birlikte üretelim, paylaşalım ve geliştirelim. Fikirlerinizi sunun, takıldığınız yerde destek alın veya projenizi sergileyin." />
     <meta property="og:image" content="https://yasinenginn.github.io/assets/img/netreka_logo.png" />
+    <meta property="og:image:alt" content="Netreka Akademi logo" />
     <meta property="og:url" content="https://yasinenginn.github.io/community_hub.html" />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Yasin Engin Topluluk Merkezi" />
+    <meta property="og:locale" content="tr_TR" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Topluluk Merkezi | Yasin Engin" />
+    <meta name="twitter:description"
+        content="Topluluk merkezi: fikirler, yardım, vitrinde proje paylaşımı ve mentorluk." />
+    <meta name="twitter:image" content="https://yasinenginn.github.io/assets/img/netreka_logo.png" />
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        "name": "Community Hub",
-        "description": "A hub for network engineering enthusiasts to share ideas, get help, and showcase projects.",
+        "name": "Topluluk Merkezi",
+        "description": "Topluluk merkezi: proje fikirleri, yardım bekleyenler, mentorluk ve proje vitrini.",
+        "url": "https://yasinenginn.github.io/community_hub.html",
+        "about": {
+          "@id": "https://yasinenginn.github.io/#person"
+        },
         "publisher": {
-          "@type": "Person",
-          "name": "Yasin Engin"
+          "@id": "https://yasinenginn.github.io/#person"
         }
       }
     </script>
@@ -58,25 +77,37 @@
 </head>
 
 <body>
-    <a class="skip" href="#ideas">Skip to content</a>
-    <canvas id="network-canvas"></canvas>
+    <a class="skip" href="#main">Skip to content</a>
+    <noscript>
+        <div class="noscript-warning">
+            JavaScript devre dışı. Sayfanın etkileşimli özellikleri için JavaScript’i etkinleştirin.
+        </div>
+    </noscript>
+    <canvas id="network-canvas" aria-hidden="true" role="presentation"></canvas>
 
     <header>
         <div class="container">
-            <nav>
-                <a href="index.html" class="logo">Yasin Engin</a>
-                <div class="nav-links">
+            <nav aria-label="Primary">
+                <a href="index.html#about" class="logo" aria-label="Go to top">Yasin Engin</a>
+
+                <button class="mobile-menu-btn" type="button" aria-label="Toggle Menu" aria-expanded="false"
+                    aria-controls="primary-navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <div class="nav-links" id="primary-navigation">
                     <a href="index.html#about" data-i18n="nav_about">Hakkında</a>
                     <a href="index.html#projects" data-i18n="nav_projects">Projeler</a>
-                    <a href="#" class="active" data-i18n="nav_community">Topluluk</a>
+                    <a href="community_hub.html" class="active" data-i18n="nav_community">Topluluk</a>
                     <a href="index.html#library" data-i18n="nav_library">Kütüphane</a>
                     <a href="index.html#contact" data-i18n="nav_contact">İletişim</a>
                 </div>
+
                 <div class="nav-actions">
-                    <button id="langToggle" class="lang-toggle" aria-label="Switch Language">
+                    <button id="langToggle" class="lang-toggle" type="button" aria-label="Switch Language">
                         EN
                     </button>
-                    <button id="themeToken" class="theme-toggle" aria-label="Temayı Değiştir">
+                    <button id="themeToken" class="theme-toggle" type="button" aria-label="Temayı Değiştir">
                         <i class="fas fa-moon"></i>
                     </button>
                 </div>
@@ -84,280 +115,244 @@
         </div>
     </header>
 
-    <main>
-        <!-- Hero Section -->
-        <section class="hero" style="min-height: 40vh; padding-top: 2rem;">
+    <main id="main" tabindex="-1">
+        <section class="hero community-hero">
             <div class="container hero-content">
+                <p class="hero-kicker">Topluluk</p>
                 <h1 data-i18n="community_hero_title">Topluluk <span class="highlight">Merkezi</span></h1>
                 <p data-i18n="community_hero_desc">
-                    Birlikte üretelim, paylaşalım ve geliştirelim. <br>
-                    Fikirlerinizi sunun, takıldığınız yerde destek alın veya projenizi sergileyin.
+                    Birlikte üretelim, paylaşalım ve geliştirelim. Fikirlerinizi sunun, takıldığınız yerde destek alın
+                    veya projenizi sergileyin.
                 </p>
 
-                <div class="cta-bullets" style="justify-content: center; margin-top: 1rem;">
-                    <a href="#ideas" class="btn-secondary"
-                        style="color:var(--accent-glow); margin: 0 1rem; text-decoration: none; border-bottom: 2px solid transparent;">
-                        <i class="fas fa-lightbulb"></i> <span data-i18n="community_ideas">Fikirler</span>
-                    </a>
-                    <a href="#help-wanted" class="btn-secondary"
-                        style="color:var(--accent-glow); margin: 0 1rem; text-decoration: none; border-bottom: 2px solid transparent;">
-                        <i class="fas fa-hands-helping"></i> <span data-i18n="community_help">Yardım</span>
-                    </a>
-                    <a href="#showcase" class="btn-secondary"
-                        style="color:var(--accent-glow); margin: 0 1rem; text-decoration: none; border-bottom: 2px solid transparent;">
-                        <i class="fas fa-star"></i> <span data-i18n="community_showcase">Vitrin</span>
-                    </a>
+                <div class="community-hero-actions">
+                    <a href="#ideas" class="btn-secondary">Fikirler</a>
+                    <a href="#help-wanted" class="btn-secondary">Yardım</a>
+                    <a href="#showcase" class="btn-secondary">Vitrin</a>
                 </div>
-            </div>
+
+                <div class="community-stats">
+                    <div class="community-stat">
+                        <span class="stat-value">30+</span>
+                        <span class="stat-label">Açık Fikir</span>
+                    </div>
+                    <div class="community-stat">
+                        <span class="stat-value">12</span>
+                        <span class="stat-label">Aktif Mentorluk</span>
+                    </div>
+                    <div class="community-stat">
+                        <span class="stat-value">50+</span>
+                        <span class="stat-label">Topluluk Üyesi</span>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Community Guide (How it works) -->
-        <section class="container section" style="padding-top: 0;">
-            <div class="community-guide-card"
-                style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 1.5rem; display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; justify-content: space-between;">
+        <section class="container section community-guide">
+            <div class="community-guide-card">
                 <div>
-                    <h3 style="color: var(--text-primary); margin-bottom: 0.5rem;">Nasıl Çalışır?</h3>
-                    <ul
-                        style="list-style: none; padding: 0; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
-                        <li>
-                            <strong>Fikirler:</strong>
-                            Henüz yapılmamış projeler. Stack ve zorluk seviyesi ekleyin.
-                        </li>
-                        <li>
-                            <strong>Yardım:</strong>
-                            Hata loglarını ve ortam detaylarını (örn. Containerlab) paylaşın.
-                        </li>
-                        <li>
-                            <strong>Vitrin:</strong>
-                            Demo linki ve repo bağlantısı ile projenizi sergileyin.
-                        </li>
+                    <h3 class="community-guide-title">Nasıl Çalışır?</h3>
+                    <ul class="community-guide-list">
+                        <li><strong>Fikirler:</strong> Henüz başlamamış projeler. Stack ve zorluk seviyesi ekleyin.</li>
+                        <li><strong>Yardım:</strong> Hata logları ve ortam detaylarıyla birlikte paylaşın.</li>
+                        <li><strong>Vitrin:</strong> Demo linki ve repo bağlantısı ile projenizi sergileyin.</li>
                     </ul>
                 </div>
-                <iframe
-                    src="https://ghbtns.com/github-btn.html?user=YasinEnginn&repo=yasinenginn.github.io&type=star&count=true&size=large"
-                    frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
+                <div class="community-guide-actions">
+                    <a class="btn-secondary" href="https://github.com/YasinEnginn/yasinenginn.github.io" target="_blank"
+                        rel="noopener noreferrer">Topluluk Reposu</a>
+                    <iframe loading="lazy" referrerpolicy="no-referrer"
+                        src="https://ghbtns.com/github-btn.html?user=YasinEnginn&repo=yasinenginn.github.io&type=star&count=true&size=large"
+                        frameborder="0" scrolling="0" width="170" height="30" title="GitHub Stars"
+                        class="github-star"></iframe>
+                </div>
             </div>
         </section>
 
-        <!-- Community Chat Channels -->
-        <section class="container section" style="padding-top: 0; padding-bottom: 2rem;">
-            <div
-                style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 1.5rem; text-align: center;">
-                <h3 style="color: var(--text-primary); margin-bottom: 0.5rem; font-size: 1.1rem;">Anlık İletişim
-                    Kanalları</h3>
-                <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.9rem;">
-                    Sorularınızı anında sormak ve diğer ağ mühendisleriyle tanışmak için gruplarımıza katılın.
+        <section class="container section community-actions">
+            <h2 class="section-title">
+                <span>Hızlı Eylemler</span>
+            </h2>
+            <div class="community-panels">
+                <article class="community-panel">
+                    <h3>Fikir Paylaş</h3>
+                    <p>Yeni bir proje fikri öner. Kapsam, hedef kitle ve teknoloji yığını ekle.</p>
+                    <a class="card-link" href="mailto:yasinenginoffical@gmail.com?subject=Topluluk Fikri">Fikir
+                        Gönder</a>
+                </article>
+                <article class="community-panel">
+                    <h3>Yardım İste</h3>
+                    <p>Hata loglarını ve ortam bilgilerini paylaş. Kısa ve net bir özet ekle.</p>
+                    <a class="card-link" href="mailto:yasinenginoffical@gmail.com?subject=Topluluk Yardım">Yardım
+                        Talebi</a>
+                </article>
+                <article class="community-panel">
+                    <h3>Proje Sergile</h3>
+                    <p>Tamamlanan projeni vitrinde sergile. Demo linki ve repo ile paylaş.</p>
+                    <a class="card-link" href="mailto:yasinenginoffical@gmail.com?subject=Topluluk Vitrin">Vitrine
+                        Ekle</a>
+                </article>
+            </div>
+        </section>
+
+        <section class="container section community-channels">
+            <div class="community-channel-card">
+                <h3 class="community-channel-title">Anlık İletişim Kanalları</h3>
+                <p class="community-channel-desc">
+                    Sorularınızı hızlıca sormak ve diğer ağ mühendisleriyle tanışmak için topluluk kanallarına katılın.
                 </p>
-                <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                <div class="channel-list">
                     <a href="https://chat.whatsapp.com/Gc6w2OXJiDo4KWtlHydeGv" target="_blank"
-                        style="background: rgba(37, 211, 102, 0.1); color: #25D366; padding: 0.8rem 1.5rem; border-radius: 8px; text-decoration: none; border: 1px solid rgba(37, 211, 102, 0.2); transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem;"
-                        onmouseover="this.style.background='rgba(37, 211, 102, 0.2)'"
-                        onmouseout="this.style.background='rgba(37, 211, 102, 0.1)'">
-                        <i class="fab fa-whatsapp" style="font-size: 1.2rem;"></i> <strong>WhatsApp</strong>
+                        rel="noopener noreferrer" class="social-pill social-pill--whatsapp">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
                     </a>
-                    <a href="https://t.me/+GSEZlQYEgaphYjI0" target="_blank"
-                        style="background: rgba(0, 136, 204, 0.1); color: #0088cc; padding: 0.8rem 1.5rem; border-radius: 8px; text-decoration: none; border: 1px solid rgba(0, 136, 204, 0.2); transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem;"
-                        onmouseover="this.style.background='rgba(0, 136, 204, 0.2)'"
-                        onmouseout="this.style.background='rgba(0, 136, 204, 0.1)'">
-                        <i class="fab fa-telegram" style="font-size: 1.2rem;"></i> <strong>Telegram</strong>
+                    <a href="https://t.me/+GSEZlQYEgaphYjI0" target="_blank" rel="noopener noreferrer"
+                        class="social-pill social-pill--telegram">
+                        <i class="fab fa-telegram"></i> Telegram
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- Mentor Slots Section -->
-        <section class="container section">
-            <h2 class="section-title">Mentorluk
-                &
-                Destek</h2>
+        <section class="container section community-mentorship">
+            <h2 class="section-title">Mentorluk ve Destek</h2>
             <div class="projects-grid">
-                <article class="project-card" style="border-left: 4px solid #c084fc;">
+                <article class="project-card mentor-card">
                     <div>
-                        <span class="chip" style="background: rgba(192, 132, 252, 0.15); color: #c084fc;">Bu
-                            Hafta</span>
-                        <h3>SR Linux & Ansible Laboratuvarı</h3>
+                        <span class="chip chip--accent">Bu Hafta</span>
+                        <h3>SR Linux ve Ansible Laboratuvarı</h3>
                         <p>Cuma 21:00 - 22:00</p>
-                        <p style="font-size: 0.85rem; color: var(--text-secondary);">
-                            Containerlab ortamında gNMI otomasyonu üzerine soru-cevap ve canlı debug.
+                        <p class="text-muted">
+                            Containerlab ortamında gNMI otomasyonu üzerine soru cevap ve canlı debug.
                         </p>
                     </div>
                 </article>
             </div>
         </section>
 
-        <!-- Project Ideas Section -->
         <section id="ideas" class="container section">
             <h2 class="section-title">
-                <i class="fas fa-lightbulb" style="color: var(--gold-color);"></i> &nbsp; <span
-                    data-i18n="section_ideas_title">Proje Fikirleri</span>
+                <span data-i18n="section_ideas_title">Proje Fikirleri</span>
             </h2>
-            <p style="margin-bottom: 2rem; color: var(--text-secondary);">
+            <p class="section-lead">
                 Henüz yapılmamış, katkı bekleyen veya ilham arayanlar için açık proje fikirleri.
             </p>
 
             <div class="projects-grid">
-                <!-- Idea Card 1 -->
                 <article class="project-card">
                     <div>
-                        <span class="chip"
-                            style="margin-bottom: 1rem; background: rgba(227, 179, 77, 0.15); color: var(--gold-color); border-color: rgba(227, 179, 77, 0.3);">Fikir
-                            Aşaması</span>
+                        <span class="chip chip--gold">Fikir Aşaması</span>
                         <h3>Acil Durum Ağı (Mesh Network)</h3>
                         <p>
-                            Doğal afetlerde internet kesildiğinde çalışacak, LoRaWAN veya Wi-Fi tabanlı otonom bir
-                            iletişim ağı tasarımı.
+                            Doğal afetlerde internet kesildiğinde çalışacak, LoRaWAN veya Wi-Fi tabanlı otonom iletişim
+                            ağı tasarımı.
                         </p>
-                        <div class="skill-tags" style="margin-bottom: 1rem;">
+                        <div class="skill-tags">
                             <span class="tag">Wireless</span>
                             <span class="tag">IoT</span>
                             <span class="tag">Mesh</span>
                         </div>
                     </div>
                     <a href="mailto:yasinenginoffical@gmail.com?subject=Fikir Katkısı: Acil Durum Ağı"
-                        class="card-link">
-                        <i class="fas fa-envelope"></i> İletişime Geç
-                    </a>
+                        class="card-link">İletişime Geç</a>
                 </article>
 
-                <!-- Idea Card 2 -->
                 <article class="project-card">
                     <div>
-                        <span class="chip"
-                            style="margin-bottom: 1rem; background: rgba(227, 179, 77, 0.15); color: var(--gold-color); border-color: rgba(227, 179, 77, 0.3);">Fikir
-                            Aşaması</span>
+                        <span class="chip chip--gold">Fikir Aşaması</span>
                         <h3>Otomatik Config Yedekleme Botu</h3>
                         <p>
-                            Telegram veya Slack üzerinden tetiklenen, multivendor cihazların konfigürasyonunu alıp Git'e
+                            Telegram veya Slack üzerinden tetiklenen, multivendor cihazların konfigürasyonunu alıp Git’e
                             pushlayan basit bir bot.
                         </p>
-                        <div class="skill-tags" style="margin-bottom: 1rem;">
+                        <div class="skill-tags">
                             <span class="tag">Python</span>
                             <span class="tag">Netmiko</span>
                             <span class="tag">ChatOps</span>
                         </div>
                     </div>
-                    <a href="mailto:yasinenginoffical@gmail.com?subject=Fikir Katkısı: Config Botu" class="card-link">
-                        <i class="fas fa-envelope"></i> İletişime Geç
-                    </a>
+                    <a href="mailto:yasinenginoffical@gmail.com?subject=Fikir Katkısı: Config Botu"
+                        class="card-link">İletişime Geç</a>
                 </article>
             </div>
         </section>
 
-        <!-- Help Wanted Section -->
         <section id="help-wanted" class="container section">
-            <h2 class="section-title">
-                <i class="fas fa-life-ring" style="color: #ff5f56;"></i> &nbsp; Yardım Bekleyenler
-            </h2>
-            <p style="margin-bottom: 2rem; color: var(--text-secondary);">
-                Mevcut projelerde takılanlar, bug fix arayanlar veya mentorluk isteyenler.
+            <h2 class="section-title">Yardım Bekleyenler</h2>
+            <p class="section-lead">
+                Mevcut projelerde takılanlar, bug fix arayanlar veya mentorluk isteyenler için açık başlıklar.
             </p>
 
             <div class="projects-grid">
-                <!-- Help Card 1 -->
-                <article class="project-card" style="border-left: 4px solid #ff5f56;">
+                <article class="project-card project-card--alert">
                     <div>
-                        <span class="chip"
-                            style="margin-bottom: 1rem; background: rgba(255, 95, 86, 0.15); color: #ff5f56; border-color: rgba(255, 95, 86, 0.3);">Bug
-                            Fix</span>
+                        <span class="chip chip--danger">Bug Fix</span>
                         <h3>Ansible - Nokia SR Linux Bağlantı Hatası</h3>
                         <p>
-                            Containerlab ortamında Ansible playbok çalıştırırken SSH handshake hatası alıyorum. Paramiko
-                            sürümüyle ilgili olabilir.
+                            Containerlab ortamında Ansible playbook çalıştırırken SSH handshake hatası alınıyor.
+                            Paramiko sürümü ile ilgili olabilir.
                         </p>
-                        <div class="skill-tags" style="margin-bottom: 1rem;">
+                        <div class="skill-tags">
                             <span class="tag">Ansible</span>
                             <span class="tag">SSH</span>
                             <span class="tag">Linux</span>
                         </div>
                     </div>
                     <a href="https://github.com/YasinEnginn/my-ansible-lab/issues" target="_blank"
-                        rel="noopener noreferrer" class="card-link">
-                        <span id="stars-ansible"
-                            style="display:inline-block; margin-right:10px; font-size:0.9em; color:#ccc;"></span>
-                        <i class="fab fa-github"></i> Issue'ya Git
-                    </a>
+                        rel="noopener noreferrer" class="card-link">Issue'ya Git</a>
                 </article>
             </div>
         </section>
 
-        <!-- Showcase Section -->
         <section id="showcase" class="container section">
-            <h2 class="section-title">
-                <i class="fas fa-trophy" style="color: var(--accent-glow);"></i> &nbsp; Proje Vitrini
-            </h2>
-            <p style="margin-bottom: 2rem; color: var(--text-secondary);">
-                Topluluk üyelerimizden gelen tamamlanmış harika işler.
-            </p>
+            <h2 class="section-title">Proje Vitrini</h2>
+            <p class="section-lead">Topluluk üyelerinden gelen tamamlanmış işler.</p>
 
-            <!-- Hall of Fame -->
-            <div
-                style="margin-bottom: 2rem; padding: 1rem; border: 1px solid var(--accent-glow); background: rgba(54, 228, 218, 0.05); border-radius: 12px; display: flex; align-items: center; gap: 1rem;">
+            <div class="hall-of-fame">
                 <div>
-                    <h4 style="margin: 0; color: #FFD700;">Ayın Projesi</h4>
-                    <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary);">
-                        <strong>Go-BGP-Viewer</strong> - BGP tablolarını görselleştiren CLI aracı. (by @mehmet_network)
+                    <h4>Ayın Projesi</h4>
+                    <p>
+                        <strong>Go-BGP-Viewer</strong> - BGP tablolarını görselleştiren CLI aracı.
                     </p>
                 </div>
             </div>
 
             <div class="projects-grid">
-                <!-- Showcase Card 1 -->
                 <article class="project-card">
                     <div>
-                        <span class="chip"
-                            style="margin-bottom: 1rem; background: rgba(136, 214, 76, 0.15); color: var(--accent-color); border-color: rgba(136, 214, 76, 0.3);">Tamamlandı</span>
+                        <span class="chip chip--success">Tamamlandı</span>
                         <h3>TR-Net-Tools</h3>
                         <p>
                             Yerli geliştiriciler için Go ile yazılmış subnet hesaplama ve ping analiz aracı.
                         </p>
-                        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem;">Geliştirici:
-                            <strong>Ahmet Y.</strong>
-                        </p>
+                        <p class="text-muted">Geliştirici: <strong>Ahmet Y.</strong></p>
                     </div>
-                    <a href="#" class="card-link">
-                        <span data-i18n="view_repo">İncele</span> <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <a href="#" class="card-link">İncele</a>
                 </article>
 
-                <!-- Submit Your Project -->
-                <article class="project-card"
-                    style="border: 2px dashed var(--text-secondary); background: transparent; align-items: center; justify-content: center; text-align: center;">
-                    <div style="display: flex; flex-direction: column; align-items: center;">
-                        <i class="fas fa-plus-circle"
-                            style="font-size: 3rem; color: var(--text-secondary); margin-bottom: 1rem;"></i>
-                        <h3>Senin Projen?</h3>
+                <article class="project-card project-card--dashed">
+                    <div class="submit-card">
+                        <h3>Senin Projen</h3>
                         <p>Yaptığın projeyi burada sergilemek ister misin?</p>
-                        <a href="mailto:yasinenginoffical@gmail.com?subject=Proje Vitrini Başvuru" class="btn-secondary"
-                            style="color: var(--accent-glow); font-weight: bold; margin-top: 1rem;">
-                            <i class="fas fa-paper-plane"></i> Gönder
-                        </a>
+                        <a href="mailto:yasinenginoffical@gmail.com?subject=Proje Vitrini Başvuru"
+                            class="btn-secondary">Gönder</a>
                     </div>
                 </article>
             </div>
         </section>
 
-        <!-- Discussions / Comments (Giscus) -->
         <section id="discussion" class="container section">
-            <h2 class="section-title">
-                <i class="fas fa-comments" style="color: var(--accent-glow);"></i> &nbsp; Topluluk Sohbeti
-            </h2>
+            <h2 class="section-title">Topluluk Sohbeti</h2>
 
-            <!-- Security / Privacy Note -->
-            <div
-                style="margin-bottom: 1.5rem; padding: 1rem; border-left: 3px solid var(--accent-color); background: rgba(136, 214, 76, 0.05); border-radius: 0 8px 8px 0;">
-                <h4 style="color: var(--accent-glow); margin-bottom: 0.5rem;">
-                    <i class="fas fa-user-shield"></i> Güvenli & Şeffaf İletişim
-                </h4>
-                <p style="font-size: 0.9rem; color: var(--text-secondary);">
-                    Burada paylaştığınız fikirler doğrudan <strong>GitHub Discussions</strong> altyapısında saklanır.
-                    Hiçbir kişisel veri bu sitede tutulmaz veya izlenmez. Yorum yapmak için GitHub hesabınızla güvenli
-                    giriş yaparsınız.
+            <div class="notice-card">
+                <h4>Güvenli ve Şeffaf İletişim</h4>
+                <p>
+                    Burada paylaştığınız fikirler GitHub Discussions altyapısında saklanır. Hiçbir kişisel veri bu
+                    sitede tutulmaz veya izlenmez. Yorum yapmak için GitHub hesabınızla güvenli giriş yaparsınız.
                 </p>
             </div>
 
-            <div class="giscus-wrapper"
-                style="background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 12px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1);">
+            <div class="giscus-wrapper">
                 <script src="https://giscus.app/client.js" data-repo="YasinEnginn/yasinenginn.github.io"
                     data-repo-id="R_kgDONv5j0Q" data-category="General" data-category-id="DIC_kwDONv5j0c4CkblJ"
                     data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0"
@@ -365,7 +360,6 @@
                     </script>
             </div>
         </section>
-
     </main>
 
     <footer id="contact">
@@ -376,36 +370,32 @@
                     <span><i class="fas fa-check"></i> <span data-i18n="service_lab">Lab Kurulum</span></span>
                     <span><i class="fas fa-check"></i> Network Automation</span>
                     <span><i class="fas fa-users"></i> <span data-i18n="service_group">Çalışma Grubu</span></span>
-                    <span><i class="fas fa-envelope-open-text"></i> Haftalık Özet</span>
                 </div>
 
                 <div class="email-copy-wrapper">
-                    <!-- Value empty for obfuscation; injected by JS -->
-                    <input type="text" id="email-address" value="" readonly>
-                    <button id="copyBtn" class="btn-copy" data-i18n="btn_copy">Kopyala</button>
+                    <input type="text" id="email-address" value="" readonly aria-label="Email address">
+                    <button id="copyBtn" class="btn-copy" type="button" data-i18n="btn_copy">Kopyala</button>
                 </div>
             </div>
 
             <div class="socials">
-                <a href="https://github.com/YasinEnginn" target="_blank" rel="noopener noreferrer"><i
-                        class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/yasin-engin%F0%9F%9B%9C-696890289/?locale=tr_TR" target="_blank"
-                    rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
-                <a href="https://www.youtube.com/@Netreka_Akademi" target="_blank" rel="noopener noreferrer"><i
-                        class="fab fa-youtube"></i></a>
+                <a href="https://github.com/YasinEnginn" target="_blank" rel="noopener noreferrer"
+                    aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/yasin-engin-696890289/?locale=tr_TR" target="_blank"
+                    rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.youtube.com/@Netreka_Akademi" target="_blank" rel="noopener noreferrer"
+                    aria-label="YouTube"><i class="fab fa-youtube"></i></a>
             </div>
 
             <p class="mini-bio">Yasin is just an ordinary human being.</p>
         </div>
     </footer>
 
-    <!-- Toggle Terminal FAB -->
-    <button id="terminal-toggle-btn" class="terminal-fab" aria-label="Open Terminal">
+    <button id="terminal-toggle-btn" class="terminal-fab" type="button" aria-label="Open Terminal">
         <i class="fas fa-terminal"></i>
     </button>
 
-    <!-- Interactive Terminal Overlay -->
-    <div id="terminal-overlay" class="terminal-overlay" style="display: none;">
+    <div id="terminal-overlay" class="terminal-overlay">
         <div class="terminal-window">
             <div class="terminal-header">
                 <span class="terminal-title">user@netreka:~</span>
@@ -416,19 +406,19 @@
                 </div>
             </div>
             <div class="terminal-body" id="terminal-body">
-                <!-- Output goes here -->
             </div>
             <div class="terminal-input-line">
                 <span class="prompt">user@netreka:~$</span>
-                <input type="text" id="terminal-input" autocomplete="off" spellcheck="false">
+                <input type="text" id="terminal-input" autocomplete="off" spellcheck="false"
+                    aria-label="Terminal input">
             </div>
         </div>
     </div>
 
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/network-bg.js"></script>
-    <script src="assets/js/terminal.js"></script>
-    <script src="assets/js/community_loader.js"></script>
+    <script src="assets/js/main.js" defer></script>
+    <script type="module" src="assets/js/network/main.js"></script>
+    <script src="assets/js/terminal.js" defer></script>
+    <script src="assets/js/community_loader.js" defer></script>
 </body>
 
 </html>

@@ -1,4 +1,5 @@
 const htmlEl = document.documentElement;
+const isMobileLite = window.matchMedia("(max-width: 768px)").matches;
 const themeBtn = document.getElementById('themeToken');
 const currentTheme = localStorage.getItem('theme') || 'dark';
 htmlEl.setAttribute('data-theme', currentTheme);
@@ -208,7 +209,7 @@ const cmdk = document.getElementById("cmdk");
 const cmdkInput = document.getElementById("cmdkInput");
 const cmdkCloseBtn = document.getElementById("cmdkClose");
 
-if (cmdk && cmdkInput && cmdkCloseBtn) {
+if (cmdk && cmdkInput && cmdkCloseBtn && !isMobileLite) {
     cmdkCloseBtn.addEventListener("click", () => cmdk.close());
 
     const actions = [
@@ -303,6 +304,8 @@ END:VCARD`;
             cmdkInput.value = "";
         }
     });
+} else if (cmdk && isMobileLite) {
+    cmdk.remove();
 }
 
 /* -----------------------------------------------------------

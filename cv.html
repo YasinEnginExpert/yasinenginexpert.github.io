@@ -283,13 +283,17 @@
             font: inherit;
         }
 
+        .mobile-hide {
+            display: block;
+        }
+
         @media (max-width: 600px) {
             body {
-                padding: 1.25rem;
+                padding: 1rem;
             }
 
             h1 {
-                font-size: 2rem;
+                font-size: 1.75rem;
             }
 
             .title-row {
@@ -299,7 +303,45 @@
             }
 
             .card {
-                padding: 1.25rem 1rem;
+                padding: 1rem 0.9rem;
+                border-radius: 10px;
+                box-shadow: none;
+                background: transparent;
+            }
+
+            .project-card {
+                padding: 0.6rem 0;
+                border: 0;
+                background: transparent;
+            }
+
+            .metric-grid {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .metric-card {
+                padding: 0.6rem 0.75rem;
+                background: transparent;
+            }
+
+            .pill {
+                padding: 0.25rem 0.55rem;
+                border: 0;
+                background: rgba(0, 86, 179, 0.08);
+                font-size: 0.85rem;
+            }
+
+            .skill-columns {
+                gap: 0.6rem 0.75rem;
+            }
+
+            section {
+                margin-bottom: 1.25rem;
+            }
+
+            .mobile-hide {
+                display: none;
             }
         }
     </style>
@@ -325,7 +367,7 @@
             </div>
         </header>
 
-        <section class="card">
+        <section class="card mobile-hide">
             <h2>Hızlı Bakış</h2>
             <div class="metric-grid">
                 <div class="metric-card">

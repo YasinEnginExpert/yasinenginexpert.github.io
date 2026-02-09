@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
+const isMobileLite = window.matchMedia("(max-width: 768px)").matches;
+if (isMobileLite) {
+return;
+}
 const repos = [
 { id: "stars-ansible", repo: "YasinEnginn/my-ansible-lab" },
 { id: "stars-go", repo: "YasinEnginn/Go_Network_Programming" },

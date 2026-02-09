@@ -10,6 +10,15 @@
    ------------------------------------------------------------------------- */
 
 document.addEventListener("DOMContentLoaded", () => {
+    const isMobileLite = window.matchMedia("(max-width: 768px)").matches;
+    if (isMobileLite) {
+        const terminalOverlay = document.getElementById("terminal-overlay");
+        const terminalToggleBtn = document.getElementById("terminal-toggle-btn");
+        if (terminalOverlay) terminalOverlay.style.display = "none";
+        if (terminalToggleBtn) terminalToggleBtn.style.display = "none";
+        return;
+    }
+
     // --- DOM Elements ---
     const terminalOverlay = document.getElementById("terminal-overlay");
     const terminalBody = document.getElementById("terminal-body");
